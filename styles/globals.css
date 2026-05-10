@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-desktop: var(--desktop);
+    --color-win: var(--win);
+    --color-win-foreground: var(--win-foreground);
+    --color-win-title: var(--win-title);
+    --color-win-title-foreground: var(--win-title-foreground);
+    --color-win-title-inactive: var(--win-title-inactive);
+    --color-bevel-light: var(--bevel-light);
+    --color-bevel-dark: var(--bevel-dark);
+    --color-bevel-darker: var(--bevel-darker);
+    --color-accent-teal: var(--accent-teal);
+    --color-accent-red: var(--accent-red);
+    --font-sans: "Inter", "Instrument Sans", system-ui, sans-serif;
+    --font-mono: "VT323", "IBM Plex Mono", "Courier New", monospace;
+    --font-pixel: "Press Start 2P", monospace;
+}
+
+:root {
+    --background: oklch(0.32 0.13 305);
+    --foreground: oklch(0.98 0 0);
+    --desktop: oklch(0.32 0.13 305);
+    --win: oklch(0.82 0.005 270);
+    --win-foreground: oklch(0.15 0 0);
+    --win-title: oklch(0.28 0.18 270);
+    --win-title-foreground: oklch(0.99 0 0);
+    --win-title-inactive: oklch(0.55 0.02 270);
+    --bevel-light: oklch(0.99 0 0);
+    --bevel-dark: oklch(0.55 0.01 270);
+    --bevel-darker: oklch(0.20 0 0);
+    --accent-teal: oklch(0.55 0.10 200);
+    --accent-red: oklch(0.55 0.20 25);
+    --radius: 0;
+}
+
+@layer base {
+    * {
+        border-color: var(--color-bevel-dark);
+    }
+
+    html {
+        font-size: 17px;
+    }
+
+    body {
+        background-color: var(--color-desktop);
+        color: var(--color-foreground);
+        font-family: var(--font-sans);
+        overflow: hidden;
+        user-select: none;
+    }
+
+    html, body {
+        height: 100%;
+    }
+}
+
+@font-face {
+    font-family: 'VT323';
+    src: url('https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isfFJU.woff2') format('woff2');
+    font-display: swap;
+}
+
+@layer components {
+    .crt::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                rgba(0, 0, 0, 0.18) 1px,
+                transparent 2px,
+                transparent 3px
+        );
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: multiply;
+    }
+
+    .crt::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 3px 3px;
+        pointer-events: none;
+        z-index: 9998;
+    }
+
+    .bevel-out {
+        background: var(--color-win);
+        border-top: 2px solid var(--color-bevel-light);
+        border-left: 2px solid var(--color-bevel-light);
+        border-right: 2px solid var(--color-bevel-darker);
+        border-bottom: 2px solid var(--color-bevel-darker);
+        box-shadow: inset -1px -1px 0 0 var(--color-bevel-dark), inset 1px 1px 0 0 var(--color-win);
+    }
+
+    .bevel-in {
+        background: var(--color-win);
+        border-top: 2px solid var(--color-bevel-darker);
+        border-left: 2px solid var(--color-bevel-darker);
+        border-right: 2px solid var(--color-bevel-light);
+        border-bottom: 2px solid var(--color-bevel-light);
+        box-shadow: inset 1px 1px 0 0 var(--color-bevel-dark);
+    }
+
+    .bevel-in-deep {
+        background: oklch(1 0 0);
+        border-top: 2px solid var(--color-bevel-darker);
+        border-left: 2px solid var(--color-bevel-darker);
+        border-right: 2px solid var(--color-bevel-light);
+        border-bottom: 2px solid var(--color-bevel-light);
+    }
+
+    .btn-95 {
+        padding: 2px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        background: var(--color-win);
+        border-top: 2px solid var(--color-bevel-light);
+        border-left: 2px solid var(--color-bevel-light);
+        border-right: 2px solid var(--color-bevel-darker);
+        border-bottom: 2px solid var(--color-bevel-darker);
+        color: var(--color-win-foreground);
+        min-width: 64px;
+    }
+
+    .btn-95:active:not(:disabled) {
+        border-top-color: var(--color-bevel-darker);
+        border-left-color: var(--color-bevel-darker);
+        border-right-color: var(--color-bevel-light);
+        border-bottom-color: var(--color-bevel-light);
+    }
+
+    .titlebar {
+        background: linear-gradient(90deg, oklch(0.28 0.18 270), oklch(0.50 0.18 290));
+        color: var(--color-win-title-foreground);
+    }
+
+    .titlebar-inactive {
+        background: linear-gradient(90deg, oklch(0.45 0.02 270), oklch(0.60 0.02 270));
+        color: oklch(0.85 0 0);
+    }
+
+    .pixel-icon {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+    }
+}
+
+::selection {
+    background: var(--color-win-title);
+    color: white;
+}

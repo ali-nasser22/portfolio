@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AliOS 95 — Next.js port
 
-## Getting Started
+A drop-in Next.js 15 (App Router) version of the AliOS 95 portfolio.
 
-First, run the development server:
+## Quick start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What's included
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/` — Next.js App Router entry (`layout.tsx`, `page.tsx`)
+- `components/os/` — all desktop OS components (Desktop, Window, Taskbar, StartMenu, apps…)
+- `styles/globals.css` — Tailwind v4 + Win95 design tokens
+- `public/Ali-Nasser-Temraz-Resume.pdf` — downloadable resume
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
+- Every os/* component is plain React — no router coupling.
+- The home page uses `"use client"` because the desktop relies on drag/state/effects.
+- Contact form posts to FormSubmit.co (no backend needed).
+- Tailwind v4 is wired via `@tailwindcss/postcss`. If you prefer v3, swap the PostCSS plugin and add a `tailwind.config.js`.
+- If you'd rather use plain Vite + React: copy `components/os/` and `styles/globals.css` into a Vite app, import the CSS in `main.tsx`, and render `<Desktop />`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## File map
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/layout.tsx        ← root layout, imports globals.css
+app/page.tsx          ← renders <Desktop />
+components/os/…       ← unchanged from the Lovable project
+public/…              ← static assets (resume PDF)
+styles/globals.css    ← Tailwind v4 + tokens
+```
